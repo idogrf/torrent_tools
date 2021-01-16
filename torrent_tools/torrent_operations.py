@@ -7,13 +7,12 @@ from torrent_tools.torrent_utils import send_to_transmission, execute_flexget_rs
 def refresh_rss_torrents():
     print(f'Starting script. Time - {datetime.now()}')
 
-    free_main_space = get_free_root_space()
     free_media_space = get_free_media_space()
 
-    if free_media_space > 5 and free_main_space > 5:
+    if free_media_space > 5:
         return execute_flexget_rss_update()
     else:
-        return 'Not enough disk space'
+        return False, 'Not enough disk space'
 
 
 def download_torrent(torrent_url, dest_path):
