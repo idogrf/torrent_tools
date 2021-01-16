@@ -36,6 +36,6 @@ def delete_small_dirs():
                 shutil.rmtree(dirpath)
                 deleted_dirs.append(dirpath)
     if len(deleted_dirs) == 0:
-        return 'Found no empy dirs'
+        return 'Found no empty dirs'
     else:
         return 'Deleted dirs: \n - ' + '\n - '.join(deleted_dirs)
