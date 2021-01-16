@@ -45,6 +45,6 @@ def _parse_flexget_response(output, err):
             accepted.append(parsed_line)
 
     if len(accepted) == 0:
-        return 'No new torrents downloaded.'
+        return False, 'No new torrents downloaded.'
     else:
-        return 'New torrents downloaded: \n - ' + '\n - '.join(accepted)
+        return True, 'New torrents downloaded: \n - ' + '\n - '.join(accepted)
