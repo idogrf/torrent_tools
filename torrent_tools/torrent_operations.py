@@ -1,6 +1,6 @@
 from datetime import datetime
 
-from torrent_tools.data_operations import get_free_media_space, get_free_root_space
+from torrent_tools.data_operations import get_free_media_space
 from torrent_tools.torrent_utils import send_to_transmission, execute_flexget_rss_update
 
 
