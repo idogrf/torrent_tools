@@ -28,9 +28,10 @@ def convert_subtitles(media_dir):
 
     if len(files_with_no_valid_subtitles) == 0:
         print('No files found for subtitles conversion\n')
-        return
+        return []
     print('\n')
 
+    converted_files = []
     for file in files_with_no_valid_subtitles:
         file_path = os.path.join(file['filepath'], file['filename'])
 
@@ -52,6 +53,9 @@ def convert_subtitles(media_dir):
 
         print(output)
         print(err)
+        converted_files.append(new_filename)
+
+    return converted_files
 
 
 def convert_audio(media_dir):
@@ -73,9 +77,10 @@ def convert_audio(media_dir):
 
     if len(files_with_no_valid_audio) == 0:
         print('No files found for audio conversion\n')
-        return
+        return []
     print('\n')
 
+    converted_files = []
     for file in files_with_no_valid_audio:
         file_path = os.path.join(file['filepath'], file['filename'])
         free_space = get_free_media_space()
@@ -92,3 +97,6 @@ def convert_audio(media_dir):
         print(f'Converting Audio for - {file["filename"]}')
         ffmpeg.run(stream)
         os.remove(file_path)
+        converted_files.append(new_filename)
+
+    return converted_files
