@@ -82,11 +82,13 @@ def convert_audio(media_dir):
     print('\n')
 
     converted_files = []
+    cant_convert = []
     for file in files_with_no_valid_audio:
         file_path = os.path.join(file['filepath'], file['filename'])
         free_space = get_free_media_space()
         file_size = os.path.getsize(file_path) / (2 ** 30)
         if file_size > free_space:
+            cant_convert.append(file['filename'])
             print(f"Cannot convert file {file['filename']} not enough disk space")
             continue
 
@@ -100,4 +102,4 @@ def convert_audio(media_dir):
         os.remove(file_path)
         converted_files.append(new_filename)
 
-    return converted_files
+    return converted_files, cant_convert
