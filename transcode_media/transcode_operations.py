@@ -69,7 +69,7 @@ def convert_audio(media_dir):
             continue
 
         audio_tracks = [track for track in media_info.tracks if track.track_type == 'Audio']
-        audio_tracks = [audio_track for audio_track in audio_tracks if audio_track.format not in ['DTS']]
+        # audio_tracks = [audio_track for audio_track in audio_tracks if audio_track.format not in ['DTS']]
         audio_tracks = [audio_track for audio_track in audio_tracks if audio_track.channel_s <= 6]
         has_valid_audio_track = len(audio_tracks) >= 1
         if not has_valid_audio_track:
