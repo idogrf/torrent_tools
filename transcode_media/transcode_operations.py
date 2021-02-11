@@ -28,10 +28,11 @@ def convert_subtitles(media_dir):
 
     if len(files_with_no_valid_subtitles) == 0:
         print('No files found for subtitles conversion\n')
-        return []
+        return [], []
     print('\n')
 
     converted_files = []
+    cant_convert = []
     for file in files_with_no_valid_subtitles:
         file_path = os.path.join(file['filepath'], file['filename'])
 
@@ -53,9 +54,11 @@ def convert_subtitles(media_dir):
 
         print(output)
         print(err)
+        if len(err) > 0:
+            cant_convert.append(file["filename"])
         converted_files.append(new_filename)
 
-    return converted_files
+    return converted_files, cant_convert
 
 
 def convert_audio(media_dir):
@@ -69,7 +72,7 @@ def convert_audio(media_dir):
             continue
 
         audio_tracks = [track for track in media_info.tracks if track.track_type == 'Audio']
-        # audio_tracks = [audio_track for audio_track in audio_tracks if audio_track.format not in ['DTS']]
+        audio_tracks = [audio_track for audio_track in audio_tracks if audio_track.format not in ['DTS']]
         audio_tracks = [audio_track for audio_track in audio_tracks if audio_track.channel_s <= 6]
         has_valid_audio_track = len(audio_tracks) >= 1
         if not has_valid_audio_track:
@@ -78,7 +81,7 @@ def convert_audio(media_dir):
 
     if len(files_with_no_valid_audio) == 0:
         print('No files found for audio conversion\n')
-        return []
+        return [],[]
     print('\n')
 
     converted_files = []
