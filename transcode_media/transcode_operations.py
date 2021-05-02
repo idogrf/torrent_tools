@@ -45,8 +45,8 @@ def convert_subtitles(media_dir):
 
         print(f'Converting Subtitles for - {file["filename"]}')
 
-        cmd = f"ffmpeg -txt_format srt -i {file_path} {os.path.join(file['filepath'], new_filename)}"
-        args = cmd.split(' ')
+        output_file_path = os.path.join(file['filepath'], new_filename)
+        args = ['ffmpeg', '-txt_format', 'srt', '-i', f'{file_path}', f'{output_file_path}']
         p = subprocess.Popen(args, stdout=subprocess.PIPE, stderr=subprocess.PIPE)
         output, err = p.communicate()
         output = output.decode("utf-8")
@@ -56,7 +56,8 @@ def convert_subtitles(media_dir):
         print(err)
         if len(err) > 0:
             cant_convert.append(file["filename"])
-        converted_files.append(new_filename)
+        else:
+            converted_files.append(new_filename)
 
     return converted_files, cant_convert
 
